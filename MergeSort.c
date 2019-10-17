@@ -65,7 +65,6 @@ int main(int argc, char *argv[]){
     for (int i = 2; i < argc; i++){
         ContaPalavras(argv[i]);
     }
-    printf("%d\n", contador_palavras);
     Vet = (int*) malloc (contador_palavras*sizeof(int));
 
     sem_init(&mutex, 0, 1);
@@ -97,7 +96,6 @@ int main(int argc, char *argv[]){
     }
 
     ContaPalavras("saida.txt");
-    printf("%d\n", contador_palavras);
     fclose(filename);
 
 }
