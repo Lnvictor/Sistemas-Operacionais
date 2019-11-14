@@ -1,59 +1,65 @@
+/*Projeto desenvolvido para a disciplina de Sistemas Operacionais
+    Programa que resolve o problema merge and sort
+
+    Desenvolvido por:
+        Breno Souza dos Reis                RA:
+        Bruno César de França               RA:
+        Victor Henrique Barbosa Pereira     RA:245055
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <semaphore.h>
 #include <string.h>
+#include <math.h>
 
-typedef struct info{
-    char** fname;
-    int numero_de_arquivos;
-}info;
-
+//Arquivo a ser compartilhado entre as threads
 FILE* Arquivo;
 
-int *Vet;
-int contador_Arquivos = 2;
-int pos_vetor=0;
-int contador_palavras = 0;
+//Variáveis compartilhadas
+int *Vet; //Armazena os inteiros
+int contador_Arquivos = 3;
 
-sem_t first;
+int pos_vetor=0;//Posição corrente do vetor
+int contador_inteiros = 0;
+
+//Declaração de semáforos
 sem_t mutex;
-sem_t vazio;
 
-void ContaPalavras(char *fname){
+//Conta Quantidade de números de um determinado arquivo
+void ContaInteiros(char *fname){
     FILE* Arquivo;
     Arquivo = fopen(fname, "r");
     int auxiliar;
 
     while(fscanf(Arquivo, "%d", &auxiliar)!= EOF){
-       contador_palavras++;
+       contador_inteiros++;
     }
 
     fclose(Arquivo);
 }
 
-
+//Algoritmo de ordenação para o quicksort
 int cmp(const void *x, const void *y){
     int *xa = (int*) x;
     int *ya = (int*) y;
 
-    if(*xa == *ya)
-        return 0;
-    if (*xa > *ya)
-        return 1;
-    if (*xa < *ya)
-        return -1;
+    if (*xa == *ya) return 0;
+    if (*xa > *ya)  return 1;
+    if (*xa < *ya)  return -1;
+
 }
 
+//Função a ser executada pelas threads
 void* functoon(){
-    int contador = 0; int aux;
+    int aux;
 
 
     while (fscanf(Arquivo, "%d", &aux) != EOF){
         sem_wait(&mutex);
         Vet[pos_vetor] = aux;
         pos_vetor++;
-        contador++;
         sem_post(&mutex);
     }
 
@@ -62,17 +68,17 @@ void* functoon(){
 int main(int argc, char *argv[]){
     pthread_t Threads[atoi(argv[1])];
 
+    //Contando quantidade de números de todos os arquivos
     for (int i = 2; i < argc; i++){
-        ContaPalavras(argv[i]);
+        ContaInteiros(argv[i]);
     }
-    Vet = (int*) malloc (contador_palavras*sizeof(int));
 
+    Vet = (int*) malloc (contador_inteiros*sizeof(int));
+    
     sem_init(&mutex, 0, 1);
-    sem_init(&vazio, 0, 1);
-    sem_init(&first, 0, 1);
 
     int j;
-    for(int i = 2; i <  argc; i++){
+    for(int i = 3; i <  argc; i++){
         Arquivo = fopen(argv[i], "r");
         for (j = 0; j < atoi(argv[1]); j++){
             pthread_create(&Threads[j], NULL, functoon, NULL);
@@ -83,19 +89,19 @@ int main(int argc, char *argv[]){
         fclose(Arquivo);
     }
 
+    //Ordenação do vetor
     qsort(Vet, pos_vetor, sizeof(int), cmp);
 
     FILE* filename;
-    filename = fopen("saida.txt", "w");
+    filename = fopen("saida.dat", "w");
 
     for(int  i = 0; i < pos_vetor; i++){
         fprintf(filename, "%d ", Vet[i]);
-        if ((i+1) % 5 == 0 && i != 0){
+        if ((i+1) % 5 == 0 && i % 10 != 0){
             fprintf(filename, "\n");
         }
     }
 
-    ContaPalavras("saida.txt");
     fclose(filename);
 
 }
