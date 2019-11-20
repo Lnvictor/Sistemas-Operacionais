@@ -121,51 +121,16 @@ Saída:
 Como saída o programa escreveu todos os inteiros presentes nos arquivos de entrada ordenadamente no arquivo “saida.dat”.
 
 
-
 Tempo de Execução
 
-Nº Threads
-User (s)
-System (s)
-Real (s)
-2
-0,02
-0,00
-0,015
-4
-0,01 
-0,00
-0,013
-6
-0,02
-0,01
-0,010
-8
-0,03
-0,02
-0,017
-16
-0,01
-0,03
-0,017
-
-
-
-
-
-
-
-
-
-
+Threads | Users | System | Real (segundos)
+--------|-------|--------|----------------
+2       | 0,02  | 0,00   | 0,015
+4       | 0,01  | 0,00   | 0,013
+6       | 0,02  | 0,01   | 0,010
+8       | 0,03  | 0,02   | 0,017
+16      | 0,01  | 0,03   | 0,017
 
 Gráfico de Tempo de Execução
 
 ![grafico](https://user-images.githubusercontent.com/47432337/69198438-6f6e3880-0b13-11ea-8c71-dd47daf09b2d.png)
-
-
-
-
-
-
-
