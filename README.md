@@ -1,45 +1,119 @@
-# Informações sobre os projetos para Sistemas Operacionais
-Este é o repositório padrão para a disciplina Sistemas Operacionais, oferecida na [Faculdade de Tecnologia](http://www.ft.unicamp.br) da [UNICAMP](http://www.unicamp.br). Nesse repositório estão as informações gerias sobre os projetos a serem desenvolvidos na disciplina e alguns códigos fonte básicos que os estudantes devem usar nos seus projetos.
+# Merge and Sort
 
-## Informações gerais sobre os projetos
-Um projeto será desenvolvido em grupos de, **no máximo**, 3 estudantes que podem se agrupar livremente. São dois os projetos propostos na disciplina. 
 
-A escolha do projeto que o grupo de estudantes desenvolverá é determinado pela soma do último dígito do RA (número de matrícula) de cada membro do grupo. Se a soma desses dígitos resultar em um número ímpar, então o grupo deve fazer o [Projeto 1](Projeto1.md); se resultar em um número par, o grupo deverá fazer o [Projeto 2](Projeto2.md).
+<b>Preparada por:</b>
+     
+Breno Souza dos Reis		 	232246
 
-### Entrega dos projetos
-Os resultados dos projetos devem ser entregues até as **23h55 do dia da aula anterior à aula da 2ª prova**. Esses resultados e toda a documentação devem estar em um repositório no [GitHub](https://github.com) ou no [BitBucket](http://bitbucket.org).
+Bruno César de Souza Ferreira França 	167955
 
-Os estudantes devem fornecer as seguintes informações até a 3ª (terceira) aula por email -- exclusivamente -- com o seguinte conteúdo:
-* Assunto do email: "[TT304] Definição da equipe para projeto de SO"
-* Nome do grupo;
-* Nome de cada um dos componentes do grupo e seus respectivos números de matrícula.
-* Projeto a ser desenvolvido (1 ou 2).
+Victor Henrique Barbosa Pereira 	245055
+                                                                  
 
-_**IMPORTANTE**_: A definição dos componentes da equipe deve acontecer até a 3ª semana letiva de aula. Após esse prazo, para cada semana de atraso na definição de equipes será descontado um ponto na nota do trabalho de cada aluno.
+		
 
-### Plágio
-:no_entry_sign: _**O plágio é condenável!**_: Qualquer forma de plágio, independentemente da quantidade de linhas, acarretará em zero no item de avaliação em que foi detectado o plágio para todos os envolvidos, sem distinção entre plagiador e plagiado.
+				        	Campinas
+						2019
 
-### Detalhamento dos produtos do projeto
-Os produtos que devem ser entregues como resultado do projeto são os seguintes:
-1. O código fonte do programa completo, documentado e pronto para ser compilado em sistemas Linux.
-2. Um vídeo mostrando o código fonte do programa, a compilação do programa, um trecho do arquivo de entrada e a execução do programa para 2, 4, 8 e 16 threads.
-3. Um relatório contendo a descrição da solução do problema (algoritmo em alto nível); as instruções para compilá-lo; os gráficos com os tempos de execução do programa para 2, 4, 8 e 16 threads; e as conclusões a respeito dos resultados obtidos.
 
-Todo o código fonte documentado, o relatório e a documentação do projeto devem estar disponíveis no repositório Git. No Moodle da disciplina, deve ser publicado apenas o relatório em PDF e neste relatório deve constar o endereço do repositório Git.
+## Descrição do Projeto
 
-Para o item (1), a sugestão é a utilização de um _makefile_ que facilite a compilação em sistemas Linux. Utilize também o comando _time_ (do Linux) para calcular o tempo total de execução.
+O problema que o grupo ficou responsável de resolver é referente ao projeto 1, Merge and Sort. Que consiste em construir um 
+programa em linguagem C usando a biblioteca Posix Threads de modo que leia no mínimo 5 arquivos de entrada com no mínimo 
+1000 números inteiros e, armazene todos ordenadamente em um único arquivo de saída.
+Este programa deve ser testado para 2, 4, 6, 8 e 16 threads e posteriormente devem ser tiradas em relação ao desempenho do 
+programa à medida que o número de  multithreads que o programa utiliza varia.
 
-Para o item (2), sugere-se o uso dos programas para capturar a tela do computador e criar vídeos, como o [SimpleScreenRecorder](http://www.maartenbaert.be/simplescreenrecorder).
 
-Para o item (3), o relatório deve estar no formato PDF ou disponível no próprio servidor Git usando um arquivo na sintaxe Markdown. Outros formatos não serão aceitos.
+## Solução
 
-A falta de qualquer um dos itens acarretará em nota zero nesse componente de avaliação.
 
-## Projetos
-A breve descrição dos projetos está a seguir. Clique nos projetos para ir direto às respectivas descrições:
-* [Projeto 1](Projeto1.md): "Merge and sort".
-* [Projeto 2](Projeto2.md): "Build matrix".
+### Variáveis : 
+```shell
+Arquivo -> FILE pointer compartilhado entre as threads
+argc -> número de variáveis inseridas pela linha de comando
+argv -> vetor de strings com os nomes das entradas inseridas pela linha de comando
+contador_inteiros -> conta número total de inteiros em todos as entradas
+contador_arquivos -> conta o número de arquivos
+pos_vet -> posição corrente de Vet
+Vet ->  Vetor que armazenará todos os inteiros dos arquivos de entrada
+mutex -> semáforo usado para sincronização de leitura de arquivos
+```
 
-# Discussão sobre a alocação dinâmica de Matrizes
-:bulb:No site [alocaMatrizes](https://gradvohl.github.io/alocaMatrizes), há uma breve discussão sobre estratégias para alocação de matrizes em programas na linguagem C. Recomenda-se a leitura atenta :eyes:.
+## Funções
+```shell
+Sinc -> Função a ser executada pelas threads. Se o semáforo  mutex estiver liberado a thread irá ler o inteiro da posição corrente de Arquivo e armazenará em Vet[pos_vet], após isso pos_vet é incrementado e é dado um  up em mutex.
+
+ContaInteiros -> Conta a quantidade de números inteiros de um determinado arquivo 
+
+cmp -> Algoritmo de ordenação para o quicksort de Vet
+```
+
+
+
+
+## Main
+
+Cria um vetor de Threads com argv[1] posições alocadas
+
+Enquanto Contador_arquivos < argc:
+Faça: ContaInteiros(argv[Contador_arquivos)
+contador_arquivos = contador_arquivos + 1
+
+```shell
+Enquanto i < argc:
+Faça: 
+Enquanto j  <  argv[1]:
+Threads[ j ] executa Functoon
+j = j+1
+i = i+1
+```
+
+Ordene o vetor Vet
+Escreve os elementos de Vet no arquivo Saida.dat
+
+### Instruções para a execução do programa
+
+Link do Projeto: https://github.com/Lnvictor/Sistemas-Operacionais
+Link do vídeo explicando o funcionamento do projeto: https://youtu.be/ZY_afeystxM
+
+#### Para compilar o programa utilize:
+
+gcc -pthread mergesort.c -o <nome do arquivo executável>
+
+#### Para executar:
+
+time ./<nome do arquivo executável> <número de threads a ser utilizado> <Arquivo1.dat> …. <ArquivoN.dat> 
+
+Obs: Para que o programa funcione é necessário que o comando time seja utilizado no momento da execução do arquivo executável
+
+
+## Análise de desempenho
+
+Para analisar o desempenho do programa consideramos a seguinte situação:
+
+### Entradas:
+
+Como entradas utilizamos 5 arquivos com 2000 números inteiros gerados aleatoriamente, tal que são pertencentes ao conjunto:
+
+
+[x ∈ Z | 0 ≤ x ≥ 1000]
+
+### Saída:
+
+Como saída o programa escreveu todos os inteiros presentes nos arquivos de entrada ordenadamente no arquivo “saida.dat”.
+
+
+## Tempo de Execução
+
+Threads | Users | System | Real (segundos)
+--------|-------|--------|----------------
+2       | 0,02  | 0,00   | 0,015
+4       | 0,01  | 0,00   | 0,013
+6       | 0,02  | 0,01   | 0,010
+8       | 0,03  | 0,02   | 0,017
+16      | 0,01  | 0,03   | 0,017
+
+## Gráfico de Tempo de Execução
+
+![grafico](https://user-images.githubusercontent.com/47432337/69198438-6f6e3880-0b13-11ea-8c71-dd47daf09b2d.png)
