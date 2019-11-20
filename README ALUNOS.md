@@ -18,7 +18,11 @@ Victor Henrique Barbosa Pereira 	245055
 
 ## Descrição do Projeto
 
-	O problema que o grupo ficou responsável de resolver é referente ao projeto 1, Merge and Sort. Que consiste em construir um programa em linguagem C usando a biblioteca Posix Threads de modo que leia no mínimo 5 arquivos de entrada com no mínimo 1000 números inteiros e, armazene todos ordenadamente em um único arquivo de saída. Este programa deve ser testado para 2, 4, 6, 8 e 16 threads e posteriormente devem ser tiradas em relação ao desempenho do programa à medida que o número de  multithreads que o programa utiliza varia.
+O problema que o grupo ficou responsável de resolver é referente ao projeto 1, Merge and Sort. Que consiste em construir um 
+programa em linguagem C usando a biblioteca Posix Threads de modo que leia no mínimo 5 arquivos de entrada com no mínimo 
+1000 números inteiros e, armazene todos ordenadamente em um único arquivo de saída.
+Este programa deve ser testado para 2, 4, 6, 8 e 16 threads e posteriormente devem ser tiradas em relação ao desempenho do 
+programa à medida que o número de  multithreads que o programa utiliza varia.
 
 
 ## Solução
