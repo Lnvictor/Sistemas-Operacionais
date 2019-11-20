@@ -1,11 +1,13 @@
 # Merge and Sort
 
 
-											Preparada por:
+<b>Preparada por:</b>
      
-                                                        Breno Souza dos Reis		 	232246
-                                                        Bruno César de Souza Ferreira França 	167955
-							Victor Henrique Barbosa Pereira 	245055
+Breno Souza dos Reis		 	232246
+
+Bruno César de Souza Ferreira França 	167955
+
+Victor Henrique Barbosa Pereira 	245055
                                                                   
 
 		
